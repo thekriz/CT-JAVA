@@ -1,0 +1,20 @@
+package p02;
+
+public class App {
+
+	public static void main(String[] args) {
+		App app = null;
+		
+		
+	}
+	public void process() {
+		
+	}
+	public String inputString() {
+		String name = null;
+		
+		Scanner scanner = null;
+		
+		return name;
+	}
+}

@@ -1,0 +1,23 @@
+package p02;
+
+import java.util.Scanner;
+
+public class App {
+
+	public static void main(String[] args) {
+		App app = null;
+		
+		app = new App();
+		
+	}
+	public void process() {
+		
+	}
+	public String inputString() {
+		String name = null;
+		
+		Scanner scanner = null;
+		
+		return name;
+	}
+}

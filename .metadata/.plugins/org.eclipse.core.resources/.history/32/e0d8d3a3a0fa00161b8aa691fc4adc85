@@ -1,0 +1,33 @@
+package p03;
+
+import java.util.Scanner;
+
+public class App {
+	public static void main(String[] args) {
+		App app = null;
+
+		app = new App();
+		app.process();
+	}
+	public void process() {
+		String quote = null;
+		String said = null;
+		Scanner scanner = null;
+		
+		scanner = new Scanner(System.in);
+		
+		scanner.close();
+	}
+	public String inputQuote(Scanner scanner) {
+		String quote = null;
+		return quote;
+	}
+	public String inputSaid(Scanner scanner) {
+		String said = null;
+		return said;
+	}
+	public void printString(String quote, String said) {
+		System.out.println(quote+" says, \""+ said + "\."");
+	}
+
+}

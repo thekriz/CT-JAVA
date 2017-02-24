@@ -1,0 +1,16 @@
+package p03;
+
+public class App {
+	public static void main(String[] args) {
+		App app = null;
+
+		app = new App();
+		app.process();
+	}
+	public void process() {
+		String quote = null;
+		String said = null;
+		Scanner scannner = null;
+	}
+
+}
