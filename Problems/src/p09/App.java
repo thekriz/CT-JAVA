@@ -42,7 +42,7 @@ public class App {
                 value = Integer.valueOf(textValue);
                 isValid = true;
             } catch (NumberFormatException e) {
-                System.out.println("This value is not invalid");
+                System.out.println("This value is not valid");
             }
         } while(!isValid);
         
