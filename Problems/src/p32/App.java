@@ -22,7 +22,7 @@ public class App {
             
             while (value != answer) {
                 count += 1;
-                if(value > answer) {
+                if (value > answer) {
                     System.out.print("Too high. ");
                 } else { // value < answer
                     System.out.print("Too low. ");

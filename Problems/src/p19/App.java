@@ -4,17 +4,17 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class App {
-
+    
     public void process() {
-        double height = 0;
-        double weight = 0;
-        double bmi = 0;
+        float height = 0.0f;
+        float weight = 0.0f;
+        float bmi = 0.0f;
         Scanner scanner = null;
         DecimalFormat decimalFormat = null;
         
         scanner = new Scanner(System.in);
-        height = inputDouble(scanner, "What is your height?(in) ");
-        weight = inputDouble(scanner, "What is your weight?(lb) ");
+        height = inputFloat(scanner, "What is your height?(in) ");
+        weight = inputFloat(scanner, "What is your weight?(lb) ");
         scanner.close();
         
         bmi = (weight / (height * height)) * 703;
@@ -30,22 +30,22 @@ public class App {
         }
     }
     
-    public double inputDouble(Scanner scanner, String message) {
-        String textValue = null;
-        double value = 0;
-        boolean isValid = false;
+    private float inputFloat(Scanner scanner, String message) {
+        String textValue = "";
+        float value = 0.0f;
         
         do {
             System.out.print(message);
             textValue = scanner.nextLine();
             
             try {
-                value = Double.valueOf(textValue);
-                isValid = true;
+                value = Float.parseFloat(textValue);
+                break;
             } catch(NumberFormatException e) {
                 System.out.println("This value is not valid.");
+                continue;
             }
-        } while(!isValid);
+        } while (true);
         
         return value;
     }

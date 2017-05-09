@@ -5,80 +5,80 @@ import java.util.Scanner;
 
 public class App {
     
-    public void process() {
-        double weight = 0;
+    private void process() {
+        float weight = 0.0f;
         boolean sex = true; // male=true, female=false
-        double amount = 0;
-        double content = 0;
-        double hour = 0;
-        double totalAmount = 0;
-        double coefficient = 0;
-        double bac = 0;
-        double driveLimit = 0;
+        float amount = 0.0f;
+        float content = 0.0f;
+        float hour = 0.0f;
+        float totalAmount = 0.0f;
+        float coefficient = 0.0f;
+        float bac = 0.0f;
+        float driveLimit = 0.0f;
         Scanner scanner = null;
         DecimalFormat decimalFormat = null;
         
         scanner = new Scanner(System.in);
-        weight = inputDouble(scanner, "What is your weight?(lb) ");
+        weight = inputFloat(scanner, "What is your weight?(lb) ");
         sex = inputSex(scanner, "What is your sex?(m/f) ");
-        amount = inputDouble(scanner, "What is amount you drank?(oz) ");
-        content = inputDouble(scanner, "What is Alcohol contents you drank?(%) ");
-        hour = inputDouble(scanner, "How long hours you drank? ");
+        amount = inputFloat(scanner, "What is amount you drank?(oz) ");
+        content = inputFloat(scanner, "What is Alcohol contents you drank?(%) ");
+        hour = inputFloat(scanner, "How long hours you drank? ");
         scanner.close();
         
         totalAmount = amount * content;
-        coefficient = (sex) ? 0.73 : 0.6;
-        bac = ((totalAmount * 5.14) / (weight * coefficient)) - 0.015 * hour;
+        coefficient = (sex) ? 0.73f : 0.6f;
+        bac = ((totalAmount * 5.14f) / (weight * coefficient)) - 0.015f * hour;
         
-        driveLimit = 0.08;
+        driveLimit = 0.08f;
         
         decimalFormat = new DecimalFormat("0.##");
-        System.out.println("Your BAC is "+decimalFormat.format(bac));
-        if(bac > driveLimit) {
+        System.out.println("Your BAC is " + decimalFormat.format(bac));
+        if (bac > driveLimit) {
             System.out.println("It is not legal for you drive.");
         } else {
             System.out.println("It is legal for you drive.");
         }
     }
     
-    public double inputDouble(Scanner scanner, String message) {
-        String textValue = null;
-        double value = 0;
-        boolean isValid = false;
+    private float inputFloat(Scanner scanner, String message) {
+        String textValue = "";
+        float value = 0.0f;
         
         do {
             System.out.print(message);
             textValue = scanner.nextLine();
             try {
-                value = Double.valueOf(textValue);
-                isValid = true;
+                value = Float.parseFloat(textValue);
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("This valud is not valid.");
+                continue;
             }
-        } while(!isValid);
+        } while (true);
         
         return value;
     }
     
-    public boolean inputSex(Scanner scanner, String message) {
-        String textValue = null;
+    private boolean inputSex(Scanner scanner, String message) {
+        String textValue = "";
         boolean value = true;
-        boolean isValid = false;
         
         do {
             System.out.print(message);
             textValue = scanner.nextLine();
             textValue = textValue.toLowerCase();
-            if(textValue.equals("m")) {
+            if (textValue.equals("m")) {
                 value = true;
-                isValid = true;
-            } else if(textValue.equals("f")) {
+                break;
+            } else if (textValue.equals("f")) {
                 value = false;
-                isValid = true;
+                break;
             } else { 
                 System.out.println("This value is not valid.");
+                continue;
             }
-        } while(!isValid);
+        } while (true);
         
         return value;
     }
@@ -89,5 +89,4 @@ public class App {
         app = new App();
         app.process();
     }
-
 }

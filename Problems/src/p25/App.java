@@ -14,60 +14,55 @@ public class App {
     public void process() {
         String password = "";
         int result = 0;
-        Scanner scanner = null;
         
-        scanner = new Scanner(System.in);
-        password = inputString(scanner, "Input the password: ");
-        scanner.close();
-        
+        password = inputPassword();
         result = passwordValidator(password);
         printResult(password, result);
     }
     
-    private String inputString(Scanner scanner, String message) {
+    private String inputPassword() {
         String textValue = "";
-        boolean valid = false;
+        Scanner scanner = null;
         
-        do {
-            System.out.print(message);
-            textValue = scanner.nextLine();
-            valid = true;
-        } while (!valid);
+        scanner = new Scanner(System.in);
+        System.out.print("Input the password: ");
+        textValue = scanner.nextLine();
+        scanner.close();
         
         return textValue;
     }
     
     private int passwordValidator(String password) {
         StringBuilder strBuilder = null;
-        boolean isHasNumber = false;
-        boolean isHasAlphabat = false;
-        boolean isHasSpecialCharacter = false;
-        boolean isValidLength = false;
+        boolean hasNumber = false;
+        boolean hasAlphabat = false;
+        boolean hasSpecialCharacter = false;
+        boolean validLength = false;
         int result = 0;
         char c = ' ' ;
         
         strBuilder = new StringBuilder(password);
-        isValidLength = (password.length() >= VALID_PASSWORD_LENGTH) ? true : false;
+        validLength = (password.length() >= VALID_PASSWORD_LENGTH) ? true : false;
         for (int i = 0; i < password.length(); i++) {
             c = strBuilder.charAt(i);
             if (c >= '0' && c <= '9') {
-                isHasNumber = true;
+                hasNumber = true;
             } else if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
-                isHasAlphabat = true;
-            } else if((c == '!') || (c == '@') || (c == '#') || (c == '$') || (c == '%')
+                hasAlphabat = true;
+            } else if ((c == '!') || (c == '@') || (c == '#') || (c == '$') || (c == '%')
                 || (c == '^') || (c == '&') || (c == '*') || (c == '(') || (c == ')')
                 || (c == '!')) {
-                isHasSpecialCharacter = true; 
+                hasSpecialCharacter = true; 
             }
         }
         
-        if (isHasNumber && !isHasAlphabat && !isHasSpecialCharacter && !isValidLength) {
+        if (hasNumber && !hasAlphabat && !hasSpecialCharacter && !validLength) {
             result = VERY_WEAK_PASSWORD;
-        } else if (!isHasNumber && isHasAlphabat && !isHasSpecialCharacter && !isValidLength) {
+        } else if (!hasNumber && hasAlphabat && !hasSpecialCharacter && !validLength) {
             result = WEAK_PASSWORD;
-        } else if (isHasNumber && isHasAlphabat && !isHasSpecialCharacter && isValidLength) {
+        } else if (hasNumber && hasAlphabat && !hasSpecialCharacter && validLength) {
             result = STRONG_PASSWORD;
-        } else if (isHasNumber && isHasAlphabat && isHasSpecialCharacter && isValidLength) { 
+        } else if (hasNumber && hasAlphabat && hasSpecialCharacter && validLength) { 
             result = VERY_STRONG_PASSWORD;
         } else {
             result = UNKNOWN;

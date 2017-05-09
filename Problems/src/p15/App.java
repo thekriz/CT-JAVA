@@ -7,8 +7,8 @@ public class App {
     public static final String CORRECT_PASSWORD = "abc$123";
     
     public void process() {
-        String username = null;
-        String password = null;
+        String username = "";
+        String password = "";
         Scanner scanner = null;
         
         scanner = new Scanner(System.in);
@@ -16,22 +16,18 @@ public class App {
         password = inputValue(scanner, "What is the password: ");
         scanner.close();
         
-        if(username.equals(CORRECT_USERNAME) && password.equals(CORRECT_PASSWORD)) {
+        if (username.equals(CORRECT_USERNAME) && password.equals(CORRECT_PASSWORD)) {
             System.out.println("Welcome!");
         } else {
             System.out.println("This password is incorrect.");
         }
     }
     
-    public String inputValue(Scanner scanner, String message) {
-        String value = null;
-        boolean isValid = false;
+    private String inputValue(Scanner scanner, String message) {
+        String value = "";
         
-        do {
-            System.out.print(message);
-            value = scanner.nextLine();
-            isValid = true;
-        } while(!isValid);
+        System.out.print(message);
+        value = scanner.nextLine();
         
         return value;
     }
@@ -42,5 +38,4 @@ public class App {
         app = new App();
         app.process();
     }
-
 }

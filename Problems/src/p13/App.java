@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class App {
-
+    
     public static void main(String[] args) {
         App app = null;
         
@@ -14,50 +14,48 @@ public class App {
     
     public void process() {
         Scanner scanner = null;
-        double principal = 0;
-        double rate = 0;
-        double numberOfYears = 0;
-        double compoundedPerYear = 0;
-        double earnings = 0;
+        float principal = 0.0f;
+        float rate = 0.0f;
+        float numberOfYears = 0.0f;
+        float compoundedPerYear = 0.0f;
+        float earnings = 0.0f;
         
         scanner = new Scanner(System.in);
-        
         principal = inputValue(scanner, "What is the principal amount? ");
         rate = inputValue(scanner, "What is the rate: ");
         numberOfYears = inputValue(scanner, "What is the number of years? ");
         compoundedPerYear = inputValue(scanner, "What is the number of times of the interest" + System.lineSeparator()
                                     + "is compounded per year: ");
-        
         scanner.close();
         
         earnings = calculate(principal, rate, numberOfYears, compoundedPerYear);
         printResult(principal, rate, numberOfYears, compoundedPerYear, earnings);
     }
     
-    public double inputValue(Scanner scanner, String message) {
-        String textValue = null;
-        double value = 0;
-        boolean isValid = false;
+    private float inputValue(Scanner scanner, String message) {
+        String textValue = "";
+        float value = 0.0f;
         
         do {
             System.out.print(message);
             textValue = scanner.nextLine();
             try {
-                value = Double.valueOf(textValue);
-                isValid = true;
+                value = Float.parseFloat(textValue);
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("This value is not valid");
+                continue;
             }
-        } while (!isValid);
+        } while (true);
         
         return value;
     }
     
-    public double calculate(double principle, double rate, double numberOfYears, double compoundedYear) {
-        return principle * Math.pow(1 + ((rate / 100) / compoundedYear), numberOfYears * compoundedYear);
+    private float calculate(float principle, float rate, float numberOfYears, float compoundedYear) {
+        return principle * (float)Math.pow(1 + ((rate / 100.0f) / compoundedYear), numberOfYears * compoundedYear);
     }
     
-    public void printResult(double principle, double rate, double numberOfYears, double compoundedPerYear, double earnings) {
+    private void printResult(float principle, float rate, float numberOfYears, float compoundedPerYear, float earnings) {
         DecimalFormat decimalFormat = null;
         
         decimalFormat = new DecimalFormat("#.##");

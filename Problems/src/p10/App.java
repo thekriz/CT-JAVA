@@ -4,8 +4,9 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class App {
-
-    public static final double TAX_RATE = 0.055;
+    public static final float TAX_RATE = 0.055f;
+    public static final int NUM_OF_ITEMS = 3;
+    public static final int END_OF_ITEMS = -1;
     
     public static void main(String[] args) {
         App app = null;
@@ -19,60 +20,59 @@ public class App {
         int count = 0;
         int item = 0;
         int quantity = 0;
-        double subTotal = 0;
-        double tax = 0;
-        double total = 0;
+        float subTotal = 0.0f;
+        float tax = 0.0f;
+        float total = 0.0f;
         
         scanner = new Scanner(System.in);
-
         count = 1;
-        while(count <= 3 /*true*/) {
-            item = inputValue(scanner, "Price of item " + String.valueOf(count) + ": ");
-            if(item == -1) {
+        while (count <= NUM_OF_ITEMS) {
+            item = inputValue(scanner, "Price of item " + count + ": ");
+            if (item == END_OF_ITEMS) {
                 break;
             }
-            quantity = inputValue(scanner, "Quantity of item " + String.valueOf(count) + ": ");
+            quantity = inputValue(scanner, "Quantity of item " + count + ": ");
             subTotal = subTotal + (item * quantity);
             count = count + 1;
         }
+        scanner.close();
+        
         tax = subTotal * TAX_RATE;
         total = subTotal + tax;
         
         printResult(subTotal, tax, total);
-        
-        scanner.close();
     }
     
-    public int inputValue(Scanner scanner, String message) {
-        String textValue = null;
+    private int inputValue(Scanner scanner, String message) {
+        String textValue = "";
         int value = 0;
-        boolean isValid = false;
         
         do {
             System.out.print(message);
             textValue = scanner.nextLine();
             try {
-                value = Integer.valueOf(textValue);
-                isValid = true;
+                value = Integer.parseInt(textValue);
+                break;
             } catch (NumberFormatException e) {
-                if(textValue.equals("")) {
-                    return -1;
+                if (textValue.equals("")) {
+                    value = END_OF_ITEMS;
+                    break;
                 }
                 System.out.println("This value is not valid");
+                continue;
             }
-        } while(!isValid);
+        } while (true);
         
         return value;
     }
     
-    public void printResult(double subTotal, double tax, double total) {
+    private void printResult(float subTotal, float tax, float total) {
         DecimalFormat decimalFormat  = null;
         
         decimalFormat = new DecimalFormat(".00");
-        
-        System.out.println("Subtotal: $" + decimalFormat.format(Math.round(subTotal * 100) / 100.0));
-        System.out.println("Tax: $" + decimalFormat.format(Math.round(tax * 100) / 100.0));
-        System.out.println("Total: $" + decimalFormat.format(Math.round(total*100) / 100.0));
+        System.out.println("Subtotal: $" + decimalFormat.format(Math.round(subTotal * 100) / 100.0f));
+        System.out.println("Tax: $" + decimalFormat.format(Math.round(tax * 100) / 100.0f));
+        System.out.println("Total: $" + decimalFormat.format(Math.round(total*100) / 100.0f));
     }
 
 }

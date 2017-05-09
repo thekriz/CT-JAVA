@@ -17,16 +17,16 @@ public class App {
         num3 = inputValue(scanner, "Enter the third number: ");
         scanner.close();
         
-        if((num1 == num2) || (num2 == num3) || (num1 == num3)) {
+        if ((num1 == num2) || (num2 == num3) || (num1 == num3)) {
             System.exit(-1);
         } else {
-            if(num1 >= max) {
+            if (num1 >= max) {
                 max = num1;
             }
-            if(num2 >= max) {
+            if (num2 >= max) {
                 max = num2;
             }
-            if(num3 >= max) {
+            if (num3 >= max) {
                 max = num3;
             }
         }
@@ -34,21 +34,21 @@ public class App {
         System.out.println("The largest number is " + max);
     }
     
-    public int inputValue(Scanner scanner, String message) {
-        String textValue = null;
+    private int inputValue(Scanner scanner, String message) {
+        String textValue = "";
         int value = 0;
-        boolean isValid = false;
         
         do {
             System.out.print(message);
             textValue = scanner.nextLine();
             try {
-                value = Integer.valueOf(textValue);
-                isValid = true;
+                value = Integer.parseInt(textValue);
+                break;
             } catch(NumberFormatException e) {
                 System.out.println("This value is not valid.");
+                continue;
             }
-        } while(!isValid);
+        } while (true);
         
         return value;
     }
@@ -59,5 +59,4 @@ public class App {
         app = new App();
         app.process();
     }
-
 }

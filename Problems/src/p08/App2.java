@@ -28,49 +28,52 @@ public class App2 {
         printResult(pizza);
     }
     
-    public int inputValue(Scanner scanner, String message) {
+    private int inputValue(Scanner scanner, String message) {
         int value = 0;
-        String textValue = null;
-        boolean isValid = false;
+        String textValue = "";
         
         do {
             System.out.print(message);
             textValue = scanner.nextLine();
             try {
-                value = Integer.valueOf(textValue);
-                isValid = true;
+                value = Integer.parseInt(textValue);
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("This value is invalid");
+                continue;
             }
-        } while(!isValid);
+        } while (true);
         
         return value;
     }
 
-    public int inputEven(Scanner scanner, String message) {
+    private int inputEven(Scanner scanner, String message) {
         int value = 0;
-        boolean isEven = false;
+        boolean even = false;
         
         do {
             value = inputValue(scanner, message);
-            isEven = (value % 2 == 0) ? true : false;
-            if(!isEven) {
-                System.out.println("Value must be even");
+            even = (value % 2 == 0) ? true : false;
+            if (!even) {
+                System.out.println("Value must be even.");
+                continue;
             }
-        } while(!isEven);
+        } while (!even);
         
         return value;
     }
     
-    public int getPizza(int people, int wantPieces, int piece) {
+    private int getPizza(int people, int wantPieces, int piece) {
         int pizza = 0;
         int leftOver = 0;
+        
         pizza = (people * wantPieces) / piece;
         leftOver = (people * wantPieces) % piece;
+        
         return (leftOver > 0) ? pizza + 1 : pizza;
     }
     
-    public void printResult(int pizza) {
-        System.out.println(String.valueOf(pizza) + " pizza need");
+    private void printResult(int pizza) {
+        System.out.println(pizza + " pizza need");
     }
 }

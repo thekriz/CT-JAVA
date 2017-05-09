@@ -3,41 +3,43 @@ package p16;
 import java.util.Scanner;
 
 public class App {
+    public static final int INVALID_AGE = -1;
+    
     public void process() {
         Scanner scanner = null;
         int age = 0;
         int limitAge = 0;
-        String resultMessage = null;
+        String resultMessage = "";
         
         scanner = new Scanner(System.in);
         age = inputValue(scanner, "What is your age? ");
         scanner.close();
-        if(age == -1) {
+        
+        limitAge = 16;
+        if (age == INVALID_AGE) {
             System.out.println("This value is not valid.");
             System.exit(-1);
         }
-        
-        limitAge = 16;
         resultMessage = (age >= limitAge) ? "You are enough to legally drive" :
                                             "You are not old enough to legally drive";
         
         System.out.println(resultMessage);
     }
     
-    public int inputValue(Scanner scanner, String message) {
-        String textValue = null;
+    private int inputValue(Scanner scanner, String message) {
+        String textValue = "";
         int value = 0;
         
         System.out.print(message);
         textValue = scanner.nextLine();
         
         try {
-            value = Integer.valueOf(textValue);
-            if(value < 0) {
-                value = -1;
+            value = Integer.parseInt(textValue);
+            if (value < 0) {
+                value = INVALID_AGE;
             }
         } catch (NumberFormatException e) {
-            value = -1;
+            value = INVALID_AGE;
         }
         
         return value;

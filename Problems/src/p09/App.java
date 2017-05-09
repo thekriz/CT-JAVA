@@ -3,8 +3,7 @@ package p09;
 import java.util.Scanner;
 
 public class App {
-
-    public static final double SQUARE_PER_PAINT = 9;
+    public static final float SQUARE_PER_PAINT = 9.0f;
     
     public static void main(String[] args) {
         App app = null;
@@ -20,42 +19,40 @@ public class App {
         int numberOfPaint = 0;
         
         scanner = new Scanner(System.in);
-        
         width = inputValue(scanner, "What is the width of the room in meter? ");
         length = inputValue(scanner, "What is the length of the room in meter? ");
-        
         scanner.close();
         
         numberOfPaint = calculateNumOfPaint(width, length);
         printResult(width, length, numberOfPaint);
     }
     
-    public int inputValue(Scanner scanner, String message) {
-        String textValue = null;
+    private int inputValue(Scanner scanner, String message) {
+        String textValue = "";
         int value = 0;
-        boolean isValid = false;
         
         do {
             System.out.print(message);
             textValue = scanner.nextLine();
             try { 
-                value = Integer.valueOf(textValue);
-                isValid = true;
+                value = Integer.parseInt(textValue);
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("This value is not valid");
+                continue;
             }
-        } while(!isValid);
+        } while (true);
         
         return value;
     }
     
-    public int calculateNumOfPaint(int width, int length) {
-        return (int)Math.ceil((width*length)/SQUARE_PER_PAINT);
+    private int calculateNumOfPaint(int width, int length) {
+        return (int)Math.ceil((width * length) / SQUARE_PER_PAINT);
     }
     
-    public void printResult(int width, int length, int paint) {
-        System.out.println("You will need to purchase " + String.valueOf(paint) + " liters of" +
-                            " paint to cover " + String.valueOf(width*length) + " meters.");
+    private void printResult(int width, int length, int paint) {
+        System.out.println("You will need to purchase " + paint + " liters of" +
+                            " paint to cover " + (width * length) + " meters.");
     }
 
 }

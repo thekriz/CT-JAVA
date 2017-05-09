@@ -3,18 +3,14 @@ package p21;
 import java.util.Scanner;
 
 public class App {
-
+    
     public void process() {
         int number = 0;
-        String name = null;
-        String result = null;
-        Scanner scanner = null;
+        String name = "";
+        String resultMessage = "";
         
-        scanner = new Scanner(System.in);
-        number = inputValue(scanner, "Please enter the number of the month: ");
-        scanner.close();
-        
-        switch(number) {
+        number = inputMonth();
+        switch (number) {
             case 1:
                 name = "January";
                 break;
@@ -52,29 +48,32 @@ public class App {
                 name = "December";
                 break;
             default:
-                name = null;
+                name = "";
                 break;
         }
         
-        result = (name != null) ? "The name of the month is " + name + "." : "This value is not valid.";
-        System.out.println(result);
+        resultMessage = (!name.isEmpty()) ? "The name of the month is " + name + "." : "This value is not valid.";
+        System.out.println(resultMessage);
     }
     
-    public int inputValue(Scanner scanner, String message) {
-        String textValue = null;
+    private int inputMonth() {
+        String textValue = "";
         int value = 0;
-        boolean isValid = false;
+        boolean valid = false;
+        Scanner scanner = null;
         
+        scanner = new Scanner(System.in);
         do {
-            System.out.print(message);
+            System.out.print("Please enter the number of the month: ");
             textValue = scanner.nextLine();
             try {
-                value = Integer.valueOf(textValue);
-                isValid = true;
+                value = Integer.parseInt(textValue);
+                valid = true;
             } catch (NumberFormatException e) {
                 System.out.println("This value is not valid.");
             }
-        } while(!isValid);
+        } while (!valid);
+        scanner.close();
         
         return value;
     }
@@ -85,5 +84,4 @@ public class App {
         app = new App();
         app.process();
     }
-
 }

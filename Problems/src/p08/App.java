@@ -3,7 +3,7 @@ package p08;
 import java.util.Scanner;
 
 public class App {
-
+    
     public static void main(String[] args) {
         App app = null;
         
@@ -20,11 +20,9 @@ public class App {
         Scanner scanner = null;
         
         scanner = new Scanner(System.in);
-        
         people = inputValue(scanner, "How many people? ");
         pizza = inputValue(scanner, "How many pizzas do you have? ");
         piece = inputEven(scanner, "How many pieces are in a pizza? ");
-        
         scanner.close();
         
         getPiece = getPiecePerPerson(people, pizza, piece);
@@ -33,55 +31,58 @@ public class App {
         printResult(people, pizza, piece, getPiece, leftOver);
     }
     
-    public int inputValue(Scanner scanner, String message) {
-        String textValue = null;
+    private int inputValue(Scanner scanner, String message) {
+        String textValue = "";
         int value = 0;
-        boolean isValid = false;
         
         do {
             System.out.print(message);
             textValue = scanner.nextLine();
             try {
-                value = Integer.valueOf(textValue);
-                isValid = true;
+                value = Integer.parseInt(textValue);
+                break;
             } catch (NumberFormatException e) {
-                System.out.println("This value is invalid");
+                System.out.println("This value is not valid");
+                continue;
             }
-        } while(!isValid);
+        } while (true);
         
         return value;
     }
     
-    public int inputEven(Scanner scanner, String message) {
+    private int inputEven(Scanner scanner, String message) {
         int value = 0;
-        boolean isEven = false;
+        boolean even = false;
         
         do {
             value = inputValue(scanner, message);
-            isEven = (value % 2 == 0) ? true : false;
-            if(!isEven) {
+            even = (value % 2 == 0) ? true : false;
+            if (!even) {
                 System.out.println("Value must be even");
+                continue;
             }
-        } while(!isEven);
+        } while (!even);
         
         return value;
     }
 
-    public int getPiecePerPerson(int people, int pizza, int piece) {
+    private int getPiecePerPerson(int people, int pizza, int piece) {
         return (pizza * piece) / people;
     }
     
-    public int getLeftOver(int people, int pizza, int piece) {
+    private int getLeftOver(int people, int pizza, int piece) {
         return (pizza * piece) % people;
     }
     
-    public void printResult(int people, int pizza, int piece, int getPiece, int leftOver) {
-        System.out.println(String.valueOf(people) + " people with " + String.valueOf(pizza) + " pizzas");
-        if(getPiece > 1) {
-            System.out.println("Each person gets " + String.valueOf(getPiece) + " pieces of pizza.");
+    private void printResult(int people, int pizza, int piece, int getPiece, int leftOver) {
+        System.out.println(people + " people with " + pizza + " pizzas");
+        
+        if (getPiece > 1) {
+            System.out.println("Each person gets " + getPiece + " pieces of pizza.");
         } else {
-            System.out.println("Each person gets " + String.valueOf(getPiece) + " piece of pizza.");
+            System.out.println("Each person gets " + getPiece + " piece of pizza.");
         }
-        System.out.println("There are " + String.valueOf(leftOver) + " leftover pieces.");
+        
+        System.out.println("There are " + leftOver + " leftover pieces.");
     }
 }

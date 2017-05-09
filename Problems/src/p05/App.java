@@ -3,7 +3,7 @@ package p05;
 import java.util.Scanner;
 
 public class App {
-
+    
     public static void main(String[] args) {
         App app = null;
         
@@ -19,85 +19,68 @@ public class App {
         int plus = 0;
         int minus = 0;
         int multiple = 0;
-        int divide = 0; /**/
+        float divide = 0.0f; /**/
         
         scanner = new Scanner(System.in);
-        
         first = inputNumber(scanner, "What is the first number? ");
         second = inputNumber(scanner, "What is the second number? ");
+        scanner.close();
         
         plus = calculatePlus(first, second);
         minus = calculateMinus(first, second);
         multiple = calculateMultiple(first, second);
         divide = calculateDivide(first, second); /**/
         
-        scanner.close();
-        
-        //printResult(first, second);
         printResult(first, second, plus, minus, multiple, divide);
     }
     
-    public int inputNumber(Scanner scanner, String message) {
-        String textNumber = null;
+    private int inputNumber(Scanner scanner, String message) {
+        String textNumber = "";
         int number = 0;
-        boolean isNumber = false;
-        boolean isNegative = true;
+        boolean valid = false;
+        boolean negative = true;
         
         do {
-            isNumber = false;
-            isNegative = true;
+            valid = false;
+            negative = false;
             System.out.print(message);
             textNumber = scanner.nextLine();
             try {
-                number = Integer.valueOf(textNumber);
-                isNumber = true;
+                number = Integer.parseInt(textNumber);
+                valid = true;
                 
-                if(number < 0) {
-                    System.out.println("This value is negative");
-                } else {
-                    isNegative = false;
+                if (number < 0) {
+                    System.out.println("This value is negative.");
+                    negative = true;
                 }
             } catch (NumberFormatException e) {
-                System.out.println("This value is not number.");
+                System.out.println("This value is not valid.");
             }
-        } while(!isNumber || isNegative);
+        } while (!valid || negative);
         
         return number;
     }
     
-    public int calculatePlus(int first, int second) {
+    private int calculatePlus(int first, int second) {
         return first + second;
     }
     
-    public int calculateMinus(int first, int second) {
+    private int calculateMinus(int first, int second) {
         return first - second;
     }
     
-    public int calculateMultiple(int first, int second) {
+    private int calculateMultiple(int first, int second) {
         return first * second;
     }
     
-    public int calculateDivide(int first, int second) { /**/
-        return first / second;
+    private float calculateDivide(int first, int second) { /**/
+        return (float)first / (float)second;
     }
     
-    public void printResult(int first, int second, int plus, int minus, int multiple, int divide) {
-        System.out.println(String.valueOf(first) + " + " + String.valueOf(second) + " = " + String.valueOf(plus));
-        System.out.println(String.valueOf(first) + " - " + String.valueOf(second) + " = " + String.valueOf(minus));
-        System.out.println(String.valueOf(first) + " * " + String.valueOf(second) + " = " + String.valueOf(multiple));
-        System.out.println(String.valueOf(first) + " / " + String.valueOf(second) + " = " + String.valueOf(divide));
+    private void printResult(int first, int second, int plus, int minus, int multiple, float divide) {
+        System.out.println(first + " + " + second + " = " + plus);
+        System.out.println(first + " - " + second + " = " + minus);
+        System.out.println(first + " * " + second + " = " + multiple);
+        System.out.println(first + " / " + second + " = " + divide);
     }
-    
-    public void printResult(int first, int second) {
-        System.out.println(String.valueOf(first) + " + " + String.valueOf(second) + " = "
-                        + String.valueOf(first + second) + System.lineSeparator()
-                        + String.valueOf(first) + " - " + String.valueOf(second) + " = "
-                        + String.valueOf(first - second) + System.lineSeparator()
-                        + String.valueOf(first) + " * " + String.valueOf(second) + " = "
-                        + String.valueOf(first * second) + System.lineSeparator()
-                        + String.valueOf(first) + " / " + String.valueOf(second) + " = "
-                        + String.valueOf(first / second) + System.lineSeparator()
-                        );
-    }
-
 }

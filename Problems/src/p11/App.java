@@ -4,8 +4,7 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class App {
-
-    public static final double RATE_TO = 100;
+    public static final float RATE_TO = 100;
     
     public static void main(String[] args) {
         App app = null;
@@ -15,46 +14,44 @@ public class App {
     }
     
     public void process() {
-        double amountTo = 0;
-        double amountFrom = 0;
-        double rateFrom = 0;
+        float amountTo = 0.0f;
+        float amountFrom = 0.0f;
+        float rateFrom = 0.0f;
         Scanner scanner = null;
         
         scanner = new Scanner(System.in);
-        
         amountFrom = inputValue(scanner, "How many Euros are you exchanging? ");
         rateFrom = inputValue(scanner, "What is the exchange rate? ");
-        
         scanner.close();
         
         amountTo = calculateAmountTo(amountFrom, rateFrom, RATE_TO);
         printResult(amountFrom, rateFrom, amountTo);
     }
     
-    public double inputValue(Scanner scanner, String message) {
-        String textValue = null;
-        double value = 0;
-        boolean isValid = false;
+    private float inputValue(Scanner scanner, String message) {
+        String textValue = "";
+        float value = 0.0f;
         
         do {
             System.out.print(message);
             textValue = scanner.nextLine();
             try {
-                value = Double.valueOf(textValue);
-                isValid = true;
+                value = Float.parseFloat(textValue);
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("This value is not valid");
+                continue;
             }
-        } while (!isValid);
+        } while (true);
         
         return value;
     }
     
-    public double calculateAmountTo(double amountFrom, double rateFrom, double rateTo) {
+    private float calculateAmountTo(float amountFrom, float rateFrom, float rateTo) {
         return (amountFrom * rateFrom) / rateTo;
     }
     
-    public void printResult (double amountFrom, double rateFrom, double amountTo) {
+    private void printResult (float amountFrom, float rateFrom, float amountTo) {
         DecimalFormat decimalFormat = null;
         
         decimalFormat = new DecimalFormat("#.##");

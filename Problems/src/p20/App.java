@@ -4,41 +4,43 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class App {
-
+    
     public void process() {
-        double amount = 0;
+        float amount = 0.0f;
         String state = null;
         String county = null;
-        double stateTax = 0;
-        double countyTax = 0;
-        double totalTax = 0;
-        double total = 0;
+        float stateTax = 0.0f;
+        float countyTax = 0.0f;
+        float totalTax = 0.0f;
+        float total = 0.0f;
         String result = "";
         Scanner scanner = null;
         DecimalFormat decimalFormat = null;
         
         scanner = new Scanner(System.in);
         decimalFormat = new DecimalFormat("0.00");
-        amount = inputDouble(scanner, "What is the order amount? ");
+        
+        amount = inputFloat(scanner, "What is the order amount? ");
         total += amount;
+        
         state = inputString(scanner, "What state do you live in? ");
-        if(state.equals("wisconsin")) {
-            stateTax = amount * 0.055;
+        if (state.equals("wisconsin")) {
+            stateTax = amount * 0.055f;
             result += "The state tax is $" + decimalFormat.format(stateTax) + "." + System.lineSeparator();
             county = inputString(scanner, "What county do you live in? ");
-            if(county.equals("eau claire")) {
-                countyTax = 0.05;
+            if (county.equals("eau claire")) {
+                countyTax = 0.05f;
                 result += "The county tax is $" + decimalFormat.format(countyTax) + "." + System.lineSeparator();
             } else if (county.equals("dunn")) {
-                countyTax = 0.04;
+                countyTax = 0.04f;
                 result += "The county tax is $" + decimalFormat.format(countyTax) + "." + System.lineSeparator();
             } else {
                 // do nothing.
             }
             totalTax = stateTax + countyTax;
             result += "The total tax is $" + decimalFormat.format(totalTax) + "." + System.lineSeparator();
-        } else if(state.equals("illinois")) {
-            stateTax = amount * 0.08;
+        } else if (state.equals("illinois")) {
+            stateTax = amount * 0.08f;
             result += "The state tax is $" + decimalFormat.format(stateTax) + "." + System.lineSeparator();
             
             totalTax += stateTax;
@@ -53,9 +55,9 @@ public class App {
         System.out.println(result);
     }
     
-    public String inputString(Scanner scanner, String message) {
-        String textValue = null;
-        String value = null;
+    private String inputString(Scanner scanner, String message) {
+        String textValue = "";
+        String value = "";
         
         System.out.print(message);
         textValue = scanner.nextLine();
@@ -64,21 +66,21 @@ public class App {
         return value;
     }
     
-    public double inputDouble(Scanner scanner, String message) {
-        String textValue = null;
-        double value = 0;
-        boolean isValid = false;
+    private float inputFloat(Scanner scanner, String message) {
+        String textValue = "";
+        float value = 0.0f;
         
         do {
             System.out.print(message);
             textValue = scanner.nextLine();
             try {
-                value = Double.valueOf(textValue);
-                isValid = true;
+                value = Float.parseFloat(textValue);
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("This value is not valid");
+                continue;
             }
-        } while(!isValid);
+        } while (true);
         
         return value;
     }

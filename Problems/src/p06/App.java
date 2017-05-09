@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 public class App {
-
+    
     public static void main(String[] args) {
         App app = null;
         
@@ -16,47 +16,53 @@ public class App {
         int age = 0;
         int retire = 0;
         Scanner scanner = null;
-        boolean alreadyRetired = false;
+        boolean retired = false;
         
         scanner = new Scanner(System.in);
-
         do {
             age = inputNumber(scanner, "What is your current age? ");
             retire = inputNumber(scanner, "At what age would you like to retire? ");
-            alreadyRetired = (age > retire) ? true : false;
-            if(alreadyRetired) {
+            retired = (age > retire) ? true : false;
+            if (retired) {
                 System.out.println("Age must be less than retire.");
             }
-        } while(alreadyRetired);
-        
+        } while (retired);
         scanner.close();
         
         printLeftYear(age, retire);
         printRetireYear(age, retire);
     }
     
-    public int inputNumber(Scanner scanner, String message) {
-        String textNumber = null;
+    private int inputNumber(Scanner scanner, String message) {
+        String textNumber = "";
         int number = 0;
         
-        System.out.print(message);
-        textNumber = scanner.nextLine();
-        number = Integer.valueOf(textNumber);
+        do {
+            System.out.print(message);
+            textNumber = scanner.nextLine();
+            try {
+                number = Integer.parseInt(textNumber);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("This value is not valid.");
+                continue;
+            }
+        } while (true);
         
         return number;
     }
     
-    public void printLeftYear(int age, int retire) {
-        System.out.println("You have " + String.valueOf(retire-age) + " years left until you can retire.");
+    private void printLeftYear(int age, int retire) {
+        System.out.println("You have " + (retire - age) + " years left until you can retire.");
     }
     
-    public void printRetireYear(int age, int retire) {
+    private void printRetireYear(int age, int retire) {
         Calendar calendar = null;
         
         calendar = Calendar.getInstance();
         
-        System.out.println("It's " + String.valueOf(calendar.get(Calendar.YEAR))
-                        + ", so you can retire in " + String.valueOf(calendar.get(Calendar.YEAR) + (retire-age)));
+        System.out.println("It's " + calendar.get(Calendar.YEAR)
+                        + ", so you can retire in " + (calendar.get(Calendar.YEAR) + (retire - age)) + ".");
     }
 
 }
